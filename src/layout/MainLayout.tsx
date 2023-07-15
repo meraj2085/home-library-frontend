@@ -6,7 +6,7 @@ export default function MainLayout() {
     <div>
       <NavBar />
       <div className="pt-16">
-        <Outlet />
+        <Outlet/>
       </div>
     </div>
   );
