@@ -9,7 +9,7 @@ const Home = () => {
           <div className="items-center lg:flex">
             <div className="w-full lg:w-1/2">
               <div className="lg:max-w-lg">
-                <h1 className="text-3xl font-semibold text-gray-800  lg:text-4xl">
+                <h1 className="text-3xl font-semibold text-gray-800  lg:text-5xl lg:font-bold">
                   Books that make a{" "}
                   <span className="text-teal-600">difference</span>
                 </h1>
