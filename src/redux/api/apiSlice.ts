@@ -6,12 +6,15 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000/api/v1/",
   }),
+  tagTypes: ['books'],
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "books",
+      providesTags: ['books'],
     }),
     getTopRecentBooks: builder.query({
       query: () => "/books?limit=10",
+      providesTags: ['books'],
     }),
     loginUser: builder.mutation({
       query: (data) => ({
@@ -27,7 +30,21 @@ export const api = createApi({
         body: data,
       }),
     }),
+    addNewBook: builder.mutation({
+      query: (data) => ({
+        url: "books",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ['books'],
+    }),
   }),
 });
 
-export const { useGetBooksQuery, useGetTopRecentBooksQuery, useLoginUserMutation, useSignUpUserMutation } = api;
+export const {
+  useGetBooksQuery,
+  useGetTopRecentBooksQuery,
+  useLoginUserMutation,
+  useSignUpUserMutation,
+  useAddNewBookMutation
+} = api;
