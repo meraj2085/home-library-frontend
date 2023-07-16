@@ -52,8 +52,8 @@ const EditBook = () => {
                   </label>
                   <input
                     type="date"
-                    name="date"
-                    id="date"
+                    name="publication_date"
+                    id="publication_date"
                     placeholder="Publication Date"
                     className="w-full px-4 py-3 border rounded-md "
                   />
