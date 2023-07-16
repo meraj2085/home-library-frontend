@@ -1,11 +1,47 @@
-import { Link } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "../redux/api/apiSlice";
+import Spinner from "../components/Spinner";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { setUser } from "../redux/features/user/userSlice";
+import { useEffect } from "react";
 
 const Login = () => {
+  const { user } = useAppSelector((state) => state.user);
+  useEffect(() => {
+    if (user.email) {
+      navigate("/");
+    }
+  }, [user.email]);
+
+  const [loginUser, { isLoading, data }] = useLoginUserMutation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  const handleLogin = (e: any) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    loginUser({ email, password });
+    if (data) {
+      dispatch(setUser(email));
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen mx-3 md:mx-0">
       <div className="w-full max-w-lg p-8 space-y-3 rounded-xl border text-gray-800">
         <h1 className="text-2xl font-bold text-center">Login</h1>
-        <form action="" className="space-y-6">
+        <form onSubmit={handleLogin} className="space-y-6">
           <div className="space-y-1 text-sm">
             <label className="block text-gray-800">Email</label>
             <input
@@ -13,6 +49,7 @@ const Login = () => {
               name="email"
               id="email"
               placeholder="Email"
+              required={true}
               className="w-full px-4 py-3 border rounded-md "
             />
           </div>
@@ -22,6 +59,7 @@ const Login = () => {
               type="password"
               name="password"
               id="password"
+              required={true}
               placeholder="Password"
               className="w-full px-4 py-3 border rounded-md"
             />
@@ -31,7 +69,10 @@ const Login = () => {
               </a>
             </div>
           </div>
-          <button className="block w-full p-3 text-center rounded-sm text-white bg-teal-600">
+          <button
+            type="submit"
+            className="block w-full p-3 text-center rounded-sm text-white bg-teal-600"
+          >
             Sign In
           </button>
         </form>
