@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const SignUp = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen mx-3 my-3 md:mx-0 md:my-0">
       <div className="w-full max-w-lg p-8 space-y-3 rounded-xl border text-gray-800">
         <h1 className="text-2xl font-bold text-center">Sign Up</h1>
         <form action="" className="space-y-6">
