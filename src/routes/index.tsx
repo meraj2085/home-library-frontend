@@ -6,6 +6,7 @@ import App from "../App";
 import SignUp from "../pages/SignUp";
 import AllBooks from "../pages/AllBooks";
 import AddNew from "../pages/AddNew";
+import WishList from "../pages/WishList";
 
 export const routes = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const routes = createBrowserRouter([
       {
         path: "/addNew",
         element: <AddNew />,
+      },
+      {
+        path: '/wishlist',
+        element: <WishList/>,
       }
     ],
   },
