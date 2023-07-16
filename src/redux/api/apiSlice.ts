@@ -8,8 +8,11 @@ export const api = createApi({
   endpoints: (builder) => ({
     getBooks: builder.query({
         query: () => 'books',
+    }),
+    getTopRecentBooks: builder.query({
+        query: () => '/books?limit=10',
     })
   }),
 });
 
-export const { useGetBooksQuery } = api;
+export const { useGetBooksQuery, useGetTopRecentBooksQuery } = api;
