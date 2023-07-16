@@ -1,11 +1,64 @@
-import { Link } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { Link, useNavigate } from "react-router-dom";
+import { useSignUpUserMutation } from "../redux/api/apiSlice";
+import Spinner from "../components/Spinner";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { setUser } from "../redux/features/user/userSlice";
+import { useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 const SignUp = () => {
+  const { user } = useAppSelector((state) => state.user);
+  useEffect(() => {
+    if (user.email) {
+      navigate("/");
+    }
+  }, [user.email]);
+
+  const [signUpUser, { isLoading, data }] = useSignUpUserMutation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  const handleSignUp = (e: any) => {
+    e.preventDefault();
+    const first_name = e.target.first_name.value;
+    const last_name = e.target.last_name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const confirm_password = e.target.confirm_password.value;
+    if (password !== confirm_password) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    signUpUser({
+      name: {
+        first_name,
+        last_name,
+      },
+      email,
+      password,
+    });
+    if (data) {
+      dispatch(setUser(email));
+      navigate('/')
+    }
+    toast("Please login to continue")
+    navigate('/login')
+  };
   return (
     <div className="flex items-center justify-center min-h-screen mx-3 my-3 md:mx-0 md:my-0">
       <div className="w-full max-w-lg p-8 space-y-3 rounded-xl border text-gray-800">
         <h1 className="text-2xl font-bold text-center">Sign Up</h1>
-        <form action="" className="space-y-6">
+        <form onSubmit={handleSignUp} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div className="space-y-1 text-sm">
               <label className="block text-gray-800">First Name</label>
@@ -14,6 +67,7 @@ const SignUp = () => {
                 name="first_name"
                 id="first_name"
                 placeholder="First Name"
+                required={true}
                 className="w-full px-4 py-3 border rounded-md "
               />
             </div>
@@ -24,6 +78,7 @@ const SignUp = () => {
                 name="last_name"
                 id="last_name"
                 placeholder="Last Name"
+                required={true}
                 className="w-full px-4 py-3 border rounded-md "
               />
             </div>
@@ -35,6 +90,7 @@ const SignUp = () => {
               name="email"
               id="email"
               placeholder="Email"
+              required={true}
               className="w-full px-4 py-3 border rounded-md "
             />
           </div>
@@ -46,6 +102,7 @@ const SignUp = () => {
                 name="password"
                 id="password"
                 placeholder="Password"
+                required={true}
                 className="w-full px-4 py-3 border rounded-md"
               />
             </div>
@@ -56,11 +113,15 @@ const SignUp = () => {
                 name="confirm_password"
                 id="confirm_password"
                 placeholder="Confirm Password"
+                required={true}
                 className="w-full px-4 py-3 border rounded-md"
               />
             </div>
           </div>
-          <button className="block w-full p-3 text-center rounded-sm text-white bg-teal-600">
+          <button
+            type="submit"
+            className="block w-full p-3 text-center rounded-sm text-white bg-teal-600"
+          >
             Sign Up
           </button>
         </form>

@@ -20,7 +20,14 @@ export const api = createApi({
         body: data,
       }),
     }),
+    signUpUser: builder.mutation({
+      query: (data) => ({
+        url: "users/signup",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetBooksQuery, useGetTopRecentBooksQuery, useLoginUserMutation } = api;
+export const { useGetBooksQuery, useGetTopRecentBooksQuery, useLoginUserMutation, useSignUpUserMutation } = api;
