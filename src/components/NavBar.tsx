@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { setUser } from "../redux/features/user/userSlice";
 
 const NavBar = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    dispatch(setUser(null));
+  };
   return (
     <header className="bg-white">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
@@ -51,7 +58,7 @@ const NavBar = () => {
                     wishlist
                   </Link>
                 </li>
-                
+
                 <li>
                   <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
@@ -65,21 +72,29 @@ const NavBar = () => {
 
             <div className="flex items-center gap-4">
               <div className="sm:flex sm:gap-4">
-                <Link
-                  className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                  to="/login"
-                >
-                  Login
-                </Link>
-
-                <div className="hidden sm:flex">
-                  <Link
-                    className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
-                    to="/signUp"
-                  >
-                    Register
-                  </Link>
-                </div>
+                {!user.email && (
+                  <>
+                    <Link
+                      className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+                      to="/login"
+                    >
+                      Login
+                    </Link>
+                    <div className="hidden sm:flex">
+                      <Link
+                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                        to="/signUp"
+                      >
+                        Register
+                      </Link>
+                    </div>
+                  </>
+                )}
+                {user.email && (
+                  <button onClick={handleLogout} className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow">
+                    Logout
+                  </button>
+                )}
               </div>
 
               <div className="block md:hidden">
