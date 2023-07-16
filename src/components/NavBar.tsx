@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const NavBar = () => {
   return (
     <header className="bg-white">
@@ -24,12 +26,12 @@ const NavBar = () => {
             <nav aria-label="Global" className="hidden md:block">
               <ul className="flex items-center gap-6 text-sm">
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
+                    to="/"
                   >
                     All Books
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
@@ -54,20 +56,20 @@ const NavBar = () => {
 
             <div className="flex items-center gap-4">
               <div className="sm:flex sm:gap-4">
-                <a
+                <Link
                   className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                  href="/"
+                  to="/login"
                 >
                   Login
-                </a>
+                </Link>
 
                 <div className="hidden sm:flex">
-                  <a
+                  <Link
                     className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
-                    href="/"
+                    to="/signUp"
                   >
                     Register
-                  </a>
+                  </Link>
                 </div>
               </div>
 

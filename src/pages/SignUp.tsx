@@ -1,11 +1,33 @@
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const SignUp = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-lg p-8 space-y-3 rounded-xl border text-gray-800">
-        <h1 className="text-2xl font-bold text-center">Login</h1>
+        <h1 className="text-2xl font-bold text-center">Sign Up</h1>
         <form action="" className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div className="space-y-1 text-sm">
+              <label className="block text-gray-800">First Name</label>
+              <input
+                type="text"
+                name="first_name"
+                id="first_name"
+                placeholder="First Name"
+                className="w-full px-4 py-3 border rounded-md "
+              />
+            </div>
+            <div className="space-y-1 text-sm">
+              <label className="block text-gray-800">Last Name</label>
+              <input
+                type="text"
+                name="last_name"
+                id="last_name"
+                placeholder="Last Name"
+                className="w-full px-4 py-3 border rounded-md "
+              />
+            </div>
+          </div>
           <div className="space-y-1 text-sm">
             <label className="block text-gray-800">Email</label>
             <input
@@ -16,29 +38,36 @@ const Login = () => {
               className="w-full px-4 py-3 border rounded-md "
             />
           </div>
-          <div className="space-y-1 text-sm">
-            <label className="block text-gray-800">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              className="w-full px-4 py-3 border rounded-md"
-            />
-            <div className="flex justify-end text-xs text-gray-800">
-              <a rel="noopener noreferrer" href="#">
-                Forgot Password?
-              </a>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div className="space-y-1 text-sm">
+              <label className="block text-gray-800">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                className="w-full px-4 py-3 border rounded-md"
+              />
+            </div>
+            <div className="space-y-1 text-sm">
+              <label className="block text-gray-800">Confirm Password</label>
+              <input
+                type="password"
+                name="confirm_password"
+                id="confirm_password"
+                placeholder="Confirm Password"
+                className="w-full px-4 py-3 border rounded-md"
+              />
             </div>
           </div>
           <button className="block w-full p-3 text-center rounded-sm text-white bg-teal-600">
-            Sign In
+            Sign Up
           </button>
         </form>
         <div className="flex items-center pt-4 space-x-1">
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
           <p className="px-3 text-sm text-gray-800">
-            Login with social accounts
+            Sign up with social accounts
           </p>
           <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>
         </div>
@@ -72,9 +101,9 @@ const Login = () => {
           </button>
         </div>
         <p className="text-xs text-center sm:px-6 text-gray-800">
-          Don't have an account?{" "}
-          <Link to="/signUp" className="underline ">
-            Sign up
+          Already have an account?{" "}
+          <Link to="/login" className="underline ">
+            Login
           </Link>
         </p>
       </div>
@@ -82,4 +111,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

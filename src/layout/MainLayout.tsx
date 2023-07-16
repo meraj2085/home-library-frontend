@@ -6,7 +6,7 @@ export default function MainLayout() {
   return (
     <div>
       <NavBar />
-      <div className="pt-16">
+      <div className="py-16 min-h-screen">
         <Outlet/>
       </div>
       <Footer />
