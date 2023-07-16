@@ -3,7 +3,7 @@ import SkeletonCard from "../shared/SkeletonCard";
 
 const AllBooks = () => {
   return (
-    <section className="bg-white mt-10 mb-16">
+    <section className="mt-10 mb-16">
       <div className="container px-6 mx-auto">
         <div className="text-center">
           <h1 className="text-2xl font-semibold text-gray-800 capitalize lg:text-4xl lg:font-bold ">
