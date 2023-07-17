@@ -9,6 +9,7 @@ import AddNew from "../pages/AddNew";
 import WishList from "../pages/WishList";
 import ViewDetails from "../pages/ViewDetails";
 import Reading from "../pages/Reading";
+import PrivateRoute from "./privateRoute";
 
 export const routes = createBrowserRouter([
   {
@@ -17,30 +18,45 @@ export const routes = createBrowserRouter([
 
     children: [
       {
-        // index: true,
         path: "/",
         element: <Home />,
       },
       {
-        path: '/allBooks',
-        element: <AllBooks/>,
+        path: "/allBooks",
+        element: <AllBooks />,
       },
       {
         path: "/addNew",
-        element: <AddNew />,
+        element: (
+          <PrivateRoute>
+            <AddNew />
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/wishlist',
-        element: <WishList/>,
+        path: "/wishlist",
+        element: (
+          <PrivateRoute>
+            <WishList />
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/reading',
-        element: <Reading/>,
+        path: "/reading",
+        element: (
+          <PrivateRoute>
+            <Reading />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/details",
-        element: <ViewDetails />,
-      }
+        element: (
+          <PrivateRoute>
+            <ViewDetails />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
