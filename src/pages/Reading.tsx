@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -13,6 +14,12 @@ import { useAppSelector } from "../redux/hook";
 import book_img from "../assets/book.jpg";
 import moment from "moment";
 import { toast } from "react-hot-toast";
+import {
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  ReactPortal,
+} from "react";
 
 const Reading = () => {
   const { user } = useAppSelector((state) => state.user);
@@ -22,7 +29,7 @@ const Reading = () => {
   if (isLoading) {
     return <Spinner />;
   }
-  const handleRead = (id) => {
+  const handleRead = (id: any) => {
     updateRead(id);
     toast.success("Congratulations!");
   };
@@ -44,50 +51,76 @@ const Reading = () => {
 
             <div className="mt-8">
               <ul className="space-y-4">
-                {reading.map((book) => (
-                  <li className="flex items-center gap-4">
-                    <img
-                      src={book_img}
-                      alt=""
-                      className="h-16 w-16 rounded object-cover"
-                    />
+                {reading.map(
+                  (book: {
+                    title:
+                      | string
+                      | number
+                      | boolean
+                      | ReactElement<any, string | JSXElementConstructor<any>>
+                      | Iterable<ReactNode>
+                      | ReactPortal
+                      | null
+                      | undefined;
+                    author:
+                      | string
+                      | number
+                      | boolean
+                      | ReactElement<any, string | JSXElementConstructor<any>>
+                      | Iterable<ReactNode>
+                      | ReactPortal
+                      | null
+                      | undefined;
+                    publication_date: moment.MomentInput;
+                    completed: any;
+                    _id: any;
+                  }) => (
+                    <li className="flex items-center gap-4">
+                      <img
+                        src={book_img}
+                        alt=""
+                        className="h-16 w-16 rounded object-cover"
+                      />
 
-                    <div>
-                      <h3 className="text-sm text-gray-900">{book?.title}</h3>
+                      <div>
+                        <h3 className="text-sm text-gray-900">{book?.title}</h3>
 
-                      <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
-                        <div>Author: {book?.author}</div>
+                        <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
+                          <div>Author: {book?.author}</div>
 
-                        <div>
-                          {moment(book?.publication_date).format("DD-MMM-YYYY")}
-                        </div>
-                      </dl>
-                    </div>
-
-                    {!book?.completed && (
-                      <div className="flex flex-1 items-center justify-end gap-2">
-                        <button
-                          onClick={() => handleRead(book?._id)}
-                          className="text-gray-600 bg-blue-100 px-1 py-1 rounded-lg transition hover:text-red-600"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path d="M20 6L9 17l-5-5" />
-                          </svg>
-                        </button>
+                          <div>
+                            {moment(book?.publication_date).format(
+                              "DD-MMM-YYYY"
+                            )}
+                          </div>
+                        </dl>
                       </div>
-                    )}
-                  </li>
-                ))}
+
+                      {!book?.completed && (
+                        <div className="flex flex-1 items-center justify-end gap-2">
+                          <button
+                            onClick={() => handleRead(book?._id)}
+                            className="text-gray-600 bg-blue-100 px-1 py-1 rounded-lg transition hover:text-red-600"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              height="24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path d="M20 6L9 17l-5-5" />
+                            </svg>
+                          </button>
+                        </div>
+                      )}
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           </div>

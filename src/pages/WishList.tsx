@@ -8,6 +8,7 @@ import { useGetWishlistQuery } from "../redux/api/apiSlice";
 import { useAppSelector } from "../redux/hook";
 import book_img from "../assets/book.jpg";
 import moment from "moment";
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
 
 const WishList = () => {
   const { user } = useAppSelector((state) => state.user);
@@ -33,7 +34,7 @@ const WishList = () => {
 
             <div className="mt-8">
               <ul className="space-y-4">
-                {wishlists.map((book) => (
+                {wishlists.map((book: { title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; author: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; publication_date: moment.MomentInput; }) => (
                   <li className="flex items-center gap-4">
                     <img
                       src={book_img}

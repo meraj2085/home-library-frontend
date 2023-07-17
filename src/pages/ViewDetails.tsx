@@ -14,10 +14,8 @@ import {
   useAddReadingMutation,
   useAddWishlistMutation,
   useDeleteBookMutation,
-  useEditBookMutation,
 } from "../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
-import Model from "../shared/Model";
 
 const ViewDetails = () => {
   const navigate = useNavigate();

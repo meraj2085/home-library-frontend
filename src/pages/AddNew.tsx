@@ -12,7 +12,7 @@ import { toast } from "react-hot-toast";
 
 const AddNew = () => {
   const { user } = useAppSelector((state) => state.user);
-  const [addNewBook, { isLoading, data }] = useAddNewBookMutation();
+  const [addNewBook, { isLoading }] = useAddNewBookMutation();
   const navigate = useNavigate();
 
   if (isLoading) {

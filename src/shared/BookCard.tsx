@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -6,7 +7,7 @@ import moment from "moment";
 import book_img from "../assets/book.jpg";
 import { useNavigate } from "react-router-dom";
 
-const BookCard = ({ book }) => {
+const BookCard = ({ book }: any) => {
   const navigate = useNavigate();
   const handleBookClick = () => {
     navigate("/details", { state: book });
