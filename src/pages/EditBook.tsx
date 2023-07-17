@@ -23,7 +23,7 @@ const EditBook = () => {
     const title = e.target.title.value;
     const author = e.target.author.value;
     const genre = e.target.genre.value;
-    const publication_date = e.target.publication_date.value;
+    const publication_date = e.target.publication_date.value | book?.publication_date;
 
     const options = {
       id: book?._id,
