@@ -1,11 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import moment from "moment";
 import book_img from "../assets/book.jpg";
+import { useNavigate } from "react-router-dom";
 
 const BookCard = ({ book }) => {
+  const navigate = useNavigate();
+  const handleBookClick = () => {
+    navigate("/details", { state: book });
+  };
+
   return (
-    <div className="w-full overflow-hidden bg-white rounded-lg shadow-lg min-h-96">
+    <div
+      onClick={handleBookClick}
+      className="w-full overflow-hidden bg-white rounded-lg shadow-lg min-h-96"
+    >
       <img
         className="object-cover object-center w-full h-56"
         src={book_img}
