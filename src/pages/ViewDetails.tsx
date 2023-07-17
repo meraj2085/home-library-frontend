@@ -161,26 +161,28 @@ const ViewDetails = () => {
             </div>
           </dl>
           <div>
-            <div className="flex justify-center mt-6 gap-2">
-              <button
-                onClick={handleEdit}
-                className="group relative inline-block text-sm font-medium text-teal-600 focus:outline-none active:text-teal-600"
-              >
-                <span className="absolute inset-0 border border-current rounded-md"></span>
-                <span className="block border border-current bg-white px-6 py-1 rounded-md transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                  Edit
-                </span>
-              </button>
-              <button
-                onClick={handleDelete}
-                className="group relative inline-block text-sm font-medium text-teal-600 focus:outline-none active:text-teal-600"
-              >
-                <span className="absolute inset-0 border border-current rounded-md"></span>
-                <span className="block border border-current bg-white px-6 py-1 rounded-md transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
-                  Delete
-                </span>
-              </button>
-            </div>
+            {user?.email === book?.publisher_email && (
+              <div className="flex justify-center mt-6 gap-2">
+                <button
+                  onClick={handleEdit}
+                  className="group relative inline-block text-sm font-medium text-teal-600 focus:outline-none active:text-teal-600"
+                >
+                  <span className="absolute inset-0 border border-current rounded-md"></span>
+                  <span className="block border border-current bg-white px-6 py-1 rounded-md transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                    Edit
+                  </span>
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="group relative inline-block text-sm font-medium text-teal-600 focus:outline-none active:text-teal-600"
+                >
+                  <span className="absolute inset-0 border border-current rounded-md"></span>
+                  <span className="block border border-current bg-white px-6 py-1 rounded-md transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                    Delete
+                  </span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
