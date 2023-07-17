@@ -45,19 +45,7 @@ const WishList = () => {
                     </div>
 
                     <div className="flex flex-1 items-center justify-end gap-2">
-                      <form>
-                        <label className="sr-only"> Quantity </label>
-
-                        <input
-                          type="number"
-                          min="1"
-                          value="1"
-                          id="Line1Qty"
-                          className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-                        />
-                      </form>
-
-                      <button className="text-gray-600 transition hover:text-red-600">
+                      <button className="text-gray-600 bg-blue-100 px-2 py-2 rounded-lg transition hover:text-red-600">
                         <span className="sr-only">Remove item</span>
 
                         <svg

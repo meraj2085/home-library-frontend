@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -7,14 +8,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 import book_img from "../assets/book.jpg";
 import moment from "moment";
 import { useAppSelector } from "../redux/hook";
-import { useAddCommentMutation } from "../redux/api/apiSlice";
+import {
+  useAddCommentMutation,
+  useAddWishlistMutation,
+} from "../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
-
 
 const ViewDetails = () => {
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
   const [addComment, { isLoading, data }] = useAddCommentMutation();
+  const [addWishlist] = useAddWishlistMutation();
   const location = useLocation();
   const book = location.state;
   const comments = book?.comments;
@@ -23,13 +27,26 @@ const ViewDetails = () => {
     e.preventDefault();
     const comment = e.target.message.value;
     const options = {
-        id: book?._id,
-        data: {
-          comment: comment,
-        },
-      };
+      id: book?._id,
+      data: {
+        comment: comment,
+      },
+    };
     addComment(options);
     toast.success("Comment added successfully");
+  };
+
+  const handleWishlist = () => {
+    console.log("Hello");
+    if (!user) {
+      return navigate("/login");
+    }
+    addWishlist({
+      title: book?.title,
+      author: book?.author,
+      user_email: user?.email,
+    });
+    toast.success("Book added to wishlist");
   };
 
   return (
@@ -62,20 +79,33 @@ const ViewDetails = () => {
             </p>
           </div>
 
-          <dl className="mt-6 flex gap-4 sm:gap-6">
-            <div className="flex flex-col-reverse">
-              <dt className="text-sm font-medium text-gray-600">Published</dt>
-              <dd className="text-xs text-gray-500">
-                {moment(book?.publication_date).format("DD-MMM-YYYY")}
-              </dd>
+          <dl className="mt-6 flex gap-4 sm:gap-6 justify-between">
+            <div className="flex">
+              <div className="flex flex-col-reverse">
+                <dt className="text-sm font-medium text-gray-600">Published</dt>
+                <dd className="text-xs text-gray-500">
+                  {moment(book?.publication_date).format("DD-MMM-YYYY")}
+                </dd>
+              </div>
             </div>
-
-            <div className="flex flex-col-reverse">
-              <dt className="text-sm font-medium text-gray-600">
-                Reading time
-              </dt>
-              <dd className="text-xs text-gray-500">3 minute</dd>
-            </div>
+            <button
+              onClick={handleWishlist}
+              className="flex justify-end bg-blue-50 px-1 py-1 rounded-lg"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 21.35l-1.45-1.32C5.4 16.25 2 13.12 2 9.5 2 7.02 3.53 5 5.5 5c1.13 0 2.18.55 2.83 1.46A4.74 4.74 0 0 0 12 7.21a4.74 4.74 0 0 0 4.67-1.75A2.99 2.99 0 0 1 18.5 5c1.97 0 3.5 2.02 3.5 4.5 0 3.62-3.4 6.75-8.55 10.54L12 21.35z" />
+              </svg>
+            </button>
           </dl>
         </div>
       </div>
