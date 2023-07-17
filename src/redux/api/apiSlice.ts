@@ -14,7 +14,9 @@ export const api = createApi({
       providesTags: ["books"],
     }),
     getWishlist: builder.query({
-      query: () => "wishlist",
+      query: (data) => ({
+        url: `wishlist/${data}`,
+      }),
       providesTags: ["wishlist"],
     }),
     getTopRecentBooks: builder.query({
