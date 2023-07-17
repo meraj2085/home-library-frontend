@@ -19,7 +19,7 @@ const AddNew = () => {
     return <Spinner />;
   }
 
-  const handleLogin = (e: any) => {
+  const handleAddBook = (e: any) => {
     e.preventDefault();
     if(!user) {
       return;
@@ -45,7 +45,7 @@ const AddNew = () => {
 
         <div className="flex justify-center mt-10">
           <div className="w-full max-w-3xl p-8 space-y-3 rounded-xl border text-gray-800">
-            <form onSubmit={handleLogin} className="space-y-6">
+            <form onSubmit={handleAddBook} className="space-y-6">
               <div className="space-y-1 text-sm">
                 <label className="block text-gray-800">Title</label>
                 <input

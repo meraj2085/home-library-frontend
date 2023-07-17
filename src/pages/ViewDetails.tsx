@@ -13,6 +13,8 @@ import {
   useAddCommentMutation,
   useAddReadingMutation,
   useAddWishlistMutation,
+  useDeleteBookMutation,
+  useEditBookMutation,
 } from "../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
 
@@ -50,7 +52,7 @@ const ViewDetails = () => {
     });
     toast.success("Book added to reading");
   };
-  
+
   const handleWishlist = () => {
     if (!user) {
       return navigate("/login");
@@ -62,6 +64,12 @@ const ViewDetails = () => {
     });
     toast.success("Book added to wishlist");
   };
+
+  const [deleteBook] = useDeleteBookMutation();
+
+  const handleEdit = () => {
+    navigate("/editBook", { state: book });
+  }
 
   return (
     <div>
@@ -141,10 +149,26 @@ const ViewDetails = () => {
               </button>
             </div>
           </dl>
+          <div>
+            <div className="flex justify-center mt-6 gap-2">
+              <button onClick={handleEdit} className="group relative inline-block text-sm font-medium text-teal-600 focus:outline-none active:text-teal-600">
+                <span className="absolute inset-0 border border-current rounded-md"></span>
+                <span className="block border border-current bg-white px-6 py-1 rounded-md transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                  Edit
+                </span>
+              </button>
+              <button className="group relative inline-block text-sm font-medium text-teal-600 focus:outline-none active:text-teal-600">
+                <span className="absolute inset-0 border border-current rounded-md"></span>
+                <span className="block border border-current bg-white px-6 py-1 rounded-md transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+                  Delete
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div className="mx-20">
-        <hr className="" />
+        <hr />
         <div className="my-10 flex justify-between">
           <div className="mt-3">
             {comments.map((comment: any) => (

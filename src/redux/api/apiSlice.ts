@@ -82,6 +82,21 @@ export const api = createApi({
       }),
       invalidatesTags: ["reading"],
     }),
+    editBook: builder.mutation({
+      query: ({id, data}) => ({
+        url: `books/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["books"],
+    }),
+    deleteBook: builder.mutation({
+      query: (data) => ({
+        url: `books/${data}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["books"],
+    }),
   }),
 });
 
@@ -97,4 +112,6 @@ export const {
   useAddReadingMutation,
   useGetReadingQuery,
   useUpdateReadMutation,
+  useEditBookMutation,
+  useDeleteBookMutation,
 } = api;
