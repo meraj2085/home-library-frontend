@@ -17,6 +17,7 @@ import {
   useEditBookMutation,
 } from "../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
+import Model from "../shared/Model";
 
 const ViewDetails = () => {
   const navigate = useNavigate();
@@ -67,9 +68,19 @@ const ViewDetails = () => {
 
   const [deleteBook] = useDeleteBookMutation();
 
+  const handleDelete = () => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this book? This action cannot be undone."
+    );
+    if (!confirm) return;
+    deleteBook(book?._id);
+    toast.success("Book deleted successfully");
+    navigate("/allBooks");
+  };
+
   const handleEdit = () => {
     navigate("/editBook", { state: book });
-  }
+  };
 
   return (
     <div>
@@ -151,13 +162,19 @@ const ViewDetails = () => {
           </dl>
           <div>
             <div className="flex justify-center mt-6 gap-2">
-              <button onClick={handleEdit} className="group relative inline-block text-sm font-medium text-teal-600 focus:outline-none active:text-teal-600">
+              <button
+                onClick={handleEdit}
+                className="group relative inline-block text-sm font-medium text-teal-600 focus:outline-none active:text-teal-600"
+              >
                 <span className="absolute inset-0 border border-current rounded-md"></span>
                 <span className="block border border-current bg-white px-6 py-1 rounded-md transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                   Edit
                 </span>
               </button>
-              <button className="group relative inline-block text-sm font-medium text-teal-600 focus:outline-none active:text-teal-600">
+              <button
+                onClick={handleDelete}
+                className="group relative inline-block text-sm font-medium text-teal-600 focus:outline-none active:text-teal-600"
+              >
                 <span className="absolute inset-0 border border-current rounded-md"></span>
                 <span className="block border border-current bg-white px-6 py-1 rounded-md transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
                   Delete
