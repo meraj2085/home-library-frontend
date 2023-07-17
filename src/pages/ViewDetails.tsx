@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -10,6 +11,7 @@ import moment from "moment";
 import { useAppSelector } from "../redux/hook";
 import {
   useAddCommentMutation,
+  useAddReadingMutation,
   useAddWishlistMutation,
 } from "../redux/api/apiSlice";
 import { toast } from "react-hot-toast";
@@ -17,8 +19,9 @@ import { toast } from "react-hot-toast";
 const ViewDetails = () => {
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
-  const [addComment, { isLoading, data }] = useAddCommentMutation();
+  const [addComment] = useAddCommentMutation();
   const [addWishlist] = useAddWishlistMutation();
+  const [addReading] = useAddReadingMutation();
   const location = useLocation();
   const book = location.state;
   const comments = book?.comments;
@@ -36,8 +39,19 @@ const ViewDetails = () => {
     toast.success("Comment added successfully");
   };
 
+  const handleReading = () => {
+    if (!user) {
+      return navigate("/login");
+    }
+    addReading({
+      title: book?.title,
+      author: book?.author,
+      user_email: user?.email,
+    });
+    toast.success("Book added to reading");
+  };
+  
   const handleWishlist = () => {
-    console.log("Hello");
     if (!user) {
       return navigate("/login");
     }
@@ -88,24 +102,44 @@ const ViewDetails = () => {
                 </dd>
               </div>
             </div>
-            <button
-              onClick={handleWishlist}
-              className="flex justify-end bg-blue-50 px-1 py-1 rounded-lg"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="24"
-                height="24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+            <div className="flex gap-2">
+              <button
+                onClick={handleWishlist}
+                className="flex justify-end bg-teal-100 px-1 py-1 rounded-lg"
               >
-                <path d="M12 21.35l-1.45-1.32C5.4 16.25 2 13.12 2 9.5 2 7.02 3.53 5 5.5 5c1.13 0 2.18.55 2.83 1.46A4.74 4.74 0 0 0 12 7.21a4.74 4.74 0 0 0 4.67-1.75A2.99 2.99 0 0 1 18.5 5c1.97 0 3.5 2.02 3.5 4.5 0 3.62-3.4 6.75-8.55 10.54L12 21.35z" />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 21.35l-1.45-1.32C5.4 16.25 2 13.12 2 9.5 2 7.02 3.53 5 5.5 5c1.13 0 2.18.55 2.83 1.46A4.74 4.74 0 0 0 12 7.21a4.74 4.74 0 0 0 4.67-1.75A2.99 2.99 0 0 1 18.5 5c1.97 0 3.5 2.02 3.5 4.5 0 3.62-3.4 6.75-8.55 10.54L12 21.35z" />
+                </svg>
+              </button>
+              <button
+                onClick={handleReading}
+                className="flex justify-end bg-blue-50 px-1 py-1 rounded-lg"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M6 2h12a2 2 0 0 1 2 2v16l-8-4-8 4V4a2 2 0 0 1 2-2z" />
+                </svg>
+              </button>
+            </div>
           </dl>
         </div>
       </div>

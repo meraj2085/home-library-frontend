@@ -7,7 +7,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000/api/v1/",
   }),
-  tagTypes: ["books", "wishlist"],
+  tagTypes: ["books", "wishlist", "reading"],
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "books",
@@ -18,6 +18,12 @@ export const api = createApi({
         url: `wishlist/${data}`,
       }),
       providesTags: ["wishlist"],
+    }),
+    getReading: builder.query({
+      query: (data) => ({
+        url: `reading/${data}`,
+      }),
+      providesTags: ["reading"],
     }),
     getTopRecentBooks: builder.query({
       query: () => "/books?limit=10",
@@ -61,6 +67,21 @@ export const api = createApi({
       }),
       invalidatesTags: ["wishlist"],
     }),
+    addReading: builder.mutation({
+      query: (data) => ({
+        url: "reading",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["reading"],
+    }),
+    updateRead: builder.mutation({
+      query: (data) => ({
+        url: `reading/${data}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["reading"],
+    }),
   }),
 });
 
@@ -73,4 +94,7 @@ export const {
   useAddCommentMutation,
   useAddWishlistMutation,
   useGetWishlistQuery,
+  useAddReadingMutation,
+  useGetReadingQuery,
+  useUpdateReadMutation,
 } = api;
